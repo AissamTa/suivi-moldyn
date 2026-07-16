@@ -1,0 +1,38 @@
+name: Publier sur GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'www/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le dépôt
+        uses: actions/checkout@v6
+
+      - name: Contrôler la cohérence des versions
+        run: |
+          CFG=$(grep -oP "VERSION:\s*'\K[^']+" www/js/config.js)
+          PKG=$(node -p "require('./package.json').version")
+          echo "config.js    : $CFG"
+          echo "package.json : $PKG"
+          if [ "$CFG" != "$PKG" ]; then
+            echo "::error::config.js ($CFG) et package.json ($PKG) divergent."
+            exit 1
+          fi
+          echo "::notice::Version $
+          
