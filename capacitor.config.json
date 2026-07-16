@@ -1,0 +1,11 @@
+{
+  "appId": "ma.moldyn.suivi",
+  "appName": "Suivi MOLDYN",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

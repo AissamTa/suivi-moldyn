@@ -1,0 +1,21 @@
+{
+  "name": "suivi-moldyn",
+  "version": "8.1.1",
+  "description": "Suivi de production horaire — MOLDYN. PWA + APK Android via Capacitor.",
+  "private": true,
+  "scripts": {
+    "serve": "npx --yes serve www -l 5173",
+    "version": "node scripts/version.mjs",
+    "cap:add": "npx cap add android",
+    "cap:sync": "npx cap sync",
+    "cap:open": "npx cap open android",
+    "apk": "cd android && ./gradlew assembleRelease"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.2.0"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/core": "^6.2.0"
+  }
+}
