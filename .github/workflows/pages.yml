@@ -1,3 +1,18 @@
+# ═══════════════════════════════════════════════════════════════
+#  Publie www/ sur GitHub Pages
+#
+#  Le point important : ce workflow publie le CONTENU de www/ à la
+#  RACINE du site. L'URL reste donc exactement
+#      https://aissamta.github.io/suivi-moldyn/
+#  c'est-à-dire celle inscrite en dur dans le WebAPK déjà installé
+#  sur les téléphones. Publier depuis une branche aurait servi
+#  .../suivi-moldyn/www/index.html et cassé l'application de tout
+#  le monde.
+#
+#  Prérequis, une seule fois :
+#    Settings → Pages → Build and deployment → Source = GitHub Actions
+# ═══════════════════════════════════════════════════════════════
+
 name: Publier sur GitHub Pages
 
 on:
@@ -6,13 +21,14 @@ on:
     paths:
       - 'www/**'
       - '.github/workflows/pages.yml'
-  workflow_dispatch:
+  workflow_dispatch:          # bouton « Run workflow » dans l'onglet Actions
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Laisse finir un déploiement en cours plutôt que de l'annuler
 concurrency:
   group: pages
   cancel-in-progress: false
@@ -34,5 +50,23 @@ jobs:
             echo "::error::config.js ($CFG) et package.json ($PKG) divergent."
             exit 1
           fi
-          echo "::notice::Version $
-          
+          echo "::notice::Version $CFG"
+
+      - name: Préparer Pages
+        uses: actions/configure-pages@v5
+
+      - name: Empaqueter www/
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: www          # ← le contenu de www/ devient la racine du site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Déployer
+        id: deployment
+        uses: actions/deploy-pages@v4

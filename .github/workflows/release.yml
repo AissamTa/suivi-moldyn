@@ -1,3 +1,29 @@
+# ═══════════════════════════════════════════════════════════════
+#  Compile l'APK et publie la release
+#
+#  Déclencheur : un tag « v* » poussé sur le dépôt.
+#      git tag v8.1.0 && git push origin v8.1.0
+#
+#  Ce que fait le workflow :
+#    1. refuse de continuer si le tag ne correspond pas à config.js
+#    2. génère le projet Android avec Capacitor (android/ n'est pas versionné)
+#    3. aligne versionCode / versionName sur la version
+#    4. signe l'APK avec la clé stockée en secret
+#    5. crée la release et y joint l'APK
+#
+#  L'APK joint est exactement celui que update.js proposera aux
+#  postes déjà installés.
+#
+#  Secrets à créer une fois (Settings → Secrets and variables → Actions) :
+#    ANDROID_KEYSTORE_BASE64   base64 -w0 moldyn-release.keystore
+#    ANDROID_KEYSTORE_PASSWORD
+#    ANDROID_KEY_ALIAS
+#    ANDROID_KEY_PASSWORD
+#  Sans eux, le workflow s'arrête avec un message clair : un APK non
+#  signé, ou signé par une clé changeante, ne peut pas être installé
+#  par-dessus le précédent.
+# ═══════════════════════════════════════════════════════════════
+
 name: Compiler l'APK et publier la release
 
 on:
@@ -6,7 +32,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: write        # nécessaire pour créer la release
 
 jobs:
   apk:
@@ -17,7 +43,7 @@ jobs:
 
       - name: Vérifier que le tag correspond à config.js
         id: version
-        shell: bash
+        shell: bash        # « read <<< » est propre à bash
         run: |
           TAG="${GITHUB_REF_NAME#v}"
           CFG=$(grep -oP "VERSION:\s*'\K[^']+" www/js/config.js)
@@ -28,6 +54,7 @@ jobs:
             echo "::error::Sinon le bandeau de mise à jour s'afficherait chez tout le monde sans qu'une nouvelle version existe."
             exit 1
           fi
+          # 8.1.0 -> 80100 : entier toujours croissant, exigé par Android
           IFS='.' read -r MA MI PA <<< "$TAG"
           echo "name=$TAG"                                   >> $GITHUB_OUTPUT
           echo "code=$((MA * 10000 + MI * 100 + PA))"        >> $GITHUB_OUTPUT
