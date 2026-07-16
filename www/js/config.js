@@ -22,7 +22,7 @@ var MOLDYN_CONFIG = {
        · la comparaison avec GitHub Releases utilise cette valeur
      Le tag GitHub doit correspondre : 8.0.0 -> tag "v8.0.0"
      ──────────────────────────────────────────────────────────── */
-  VERSION: '8.1.2',
+  VERSION: '8.1.3',
 
   /* ── Codes d'arrêt ──────────────────────────────────────────
      Alimentent le menu déroulant de chaque heure ET la légende
