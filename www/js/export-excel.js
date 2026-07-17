@@ -1,4 +1,4 @@
-const filename = Suivi_Production_${entry.date}_${entry.shift}.xlsx;
+const filename = "Suivi_Production_" + entry.date + "_" + entry.shift + ".xlsx";
     const buffer = await wb.xlsx.writeBuffer();
 
     const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
