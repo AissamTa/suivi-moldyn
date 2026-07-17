@@ -294,7 +294,7 @@ function renderHist(){
     loadIntoForm(localEntries.find(e=> e.id===b.dataset.ed));
   }));
   box.querySelectorAll('[data-xl]').forEach(b=> b.addEventListener('click', ()=>{
-    exportEntry(localEntries.find(e=> e.id===b.dataset.xl));
+  exportExcel(localEntries.find(e=> e.id===b.dataset.xl));
   }));
   box.querySelectorAll('[data-dl]').forEach(b=> b.addEventListener('click', ()=> deleteEntry(b.dataset.dl)));
 }
