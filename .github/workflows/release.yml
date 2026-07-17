@@ -1,0 +1,26 @@
+- name: Compiler
+        working-directory: android
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Renommer l'APK
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/release/*.apk \
+             "dist/SuiviMOLDYN-${{ steps.version.outputs.name }}.apk"
+          ls -lh dist/
+
+      - name: Effacer la clé du runner
+        if: always()
+        run: rm -f android/app/moldyn.keystore
+
+      - name: Publier la release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.version.outputs.name }}
+          files: dist/*.apk
+          generate_release_notes: true
+          fail_on_unmatched_files: true
