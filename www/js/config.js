@@ -22,7 +22,7 @@ var MOLDYN_CONFIG = {
        · la comparaison avec GitHub Releases utilise cette valeur
      Le tag GitHub doit correspondre : 8.0.0 -> tag "v8.0.0"
      ──────────────────────────────────────────────────────────── */
-  VERSION: '8.1.5',
+  VERSION: '8.1.6',
 
   /* ── Codes d'arrêt ──────────────────────────────────────────
      Alimentent le menu déroulant de chaque heure ET la légende
@@ -72,9 +72,11 @@ var MOLDYN_CONFIG = {
   /* ── Assistant (Supabase Edge Function) ─────────────────────
      Renseigner l'URL après « supabase functions deploy ».
      Voir docs/SUPABASE.md. Laisser vide tant que non déployé :
-     
      l'application fonctionne sans.
      ──────────────────────────────────────────────────────────── */
   CHAT: {
     ENABLED: false,
-    URL: ''  // https://<PROJECT_REF>.supabase
+    URL: ''  // https://<PROJECT_REF>.supabase.co/functions/v1/chat
+  }
+
+};
