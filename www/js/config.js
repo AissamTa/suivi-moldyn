@@ -22,7 +22,7 @@ var MOLDYN_CONFIG = {
        · la comparaison avec GitHub Releases utilise cette valeur
      Le tag GitHub doit correspondre : 8.0.0 -> tag "v8.0.0"
      ──────────────────────────────────────────────────────────── */
-  VERSION: '8.1.4',
+  VERSION: '8.1.5',
 
   /* ── Codes d'arrêt ──────────────────────────────────────────
      Alimentent le menu déroulant de chaque heure ET la légende
@@ -76,20 +76,4 @@ var MOLDYN_CONFIG = {
      ──────────────────────────────────────────────────────────── */
   CHAT: {
     ENABLED: false,
-    URL: ''  // https://<PROJECT_REF>.supabase.co/functions/v1/moldyn-chat
-  }
-};
-
-/* Exposé pour l'application (fenêtre) et pour le service worker
-   (contexte worker, où « window » n'existe pas). */
-if (typeof window !== 'undefined') window.MOLDYN_CONFIG = MOLDYN_CONFIG;
-
-/* ── Raccourcis globaux ─────────────────────────────────────────
-   Déclarés ici UNE SEULE FOIS, et en « var » à dessein.
-   app.js et export-excel.js s'en servent tous les deux ; avec des
-   scripts classiques ils partagent la même portée globale, et deux
-   « const CODES » dans deux fichiers lèveraient une erreur qui
-   empêcherait l'application entière de démarrer.
-   ──────────────────────────────────────────────────────────────── */
-var CODES = MOLDYN_CONFIG.CODES;
-var NB_H  = MOLDYN_CONFIG.HOURS;
+    URL: ''  // https://<PROJECT_REF>.supabase
