@@ -13,6 +13,7 @@
 
    Chargement : config -> utils -> storage -> export-excel -> update -> app
    ═══════════════════════════════════════════════════════════════ */
+const NB_H = MOLDYN_CONFIG.HOURS;
 
 let refs = [];
 let comments = {};
