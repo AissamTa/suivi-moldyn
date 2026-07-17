@@ -1,6 +1,6 @@
 {
   "name": "suivi-moldyn",
-  "version": "8.1.5",
+  "version": "8.1.6",
   "description": "Suivi de production horaire — MOLDYN. PWA + APK Android via Capacitor.",
   "private": true,
   "scripts": {
