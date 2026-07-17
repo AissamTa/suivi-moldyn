@@ -1,4 +1,6 @@
-const filename = "Suivi_Production_" + entry.date + "_" + entry.shift + ".xlsx";
+async function exportExcel(entry) {
+  try {
+    const filename = "Suivi_Production_" + entry.date + "_" + entry.shift + ".xlsx";
     const buffer = await wb.xlsx.writeBuffer();
 
     const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
@@ -17,7 +19,7 @@ const filename = "Suivi_Production_" + entry.date + "_" + entry.shift + ".xlsx";
         url: savedFile.uri,
         dialogTitle: 'حفظ / مشاركة الملف'
       });
-      toast('الملف جاهز — اختار فين تحفظو');
+      toast('الملف جاهز - اختار فين تحفظو');
     } else {
       const blob = new Blob([buffer], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
       const url = URL.createObjectURL(blob);
@@ -29,8 +31,9 @@ const filename = "Suivi_Production_" + entry.date + "_" + entry.shift + ".xlsx";
     }
 
     document.querySelector('.tab[data-tab="fiche"]').click();
-  }catch(err){
+  } catch(err) {
     console.error('Export failed', err);
     toast('Échec de la génération du fichier');
   }
 }
+  
