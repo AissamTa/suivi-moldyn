@@ -72,6 +72,7 @@ var MOLDYN_CONFIG = {
   /* ── Assistant (Supabase Edge Function) ─────────────────────
      Renseigner l'URL après « supabase functions deploy ».
      Voir docs/SUPABASE.md. Laisser vide tant que non déployé :
+     
      l'application fonctionne sans.
      ──────────────────────────────────────────────────────────── */
   CHAT: {
