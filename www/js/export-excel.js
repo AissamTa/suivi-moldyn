@@ -5,6 +5,7 @@ async function exportExcel(entry) {
 
     const isNative = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
 
+    
     if (isNative) {
       const { Filesystem, Directory } = window.Capacitor.Plugins;
       const { Share } = window.Capacitor.Plugins;
