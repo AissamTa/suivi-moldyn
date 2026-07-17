@@ -357,13 +357,21 @@ initRepartition();
 initConfirm();
 resetForm();
 loadLog();
-
 // Service worker : uniquement sur le web en http(s).
 // Dans l'APK Capacitor les fichiers sont déjà embarqués : un cache
 // par-dessus n'apporte rien et risquerait de servir une version
 // périmée après une mise à jour de l'application.
 if('serviceWorker' in navigator && location.protocol.startsWith('http') && !isNativeApp()){
-  navigator.serviceWorker.register('./sw.js').catch(()=>{ /* hors ligne indisponible, sans incidence */ });
+  navigator.serviceWorker.register('./sw.js').then(reg => {
+    reg.update();
+    reg.addEventListener('updatefound', () => {
+      const nw = reg.installing;
+      if (!nw) return;
+      nw.addEventListener('statechange', () => {
+        if (nw.state === 'activated') location.reload();
+      });
+    });
+  }).catch(()=>{ /* hors ligne indisponible, service worker non supporté */ });
 }
 
 // Vérification des mises à jour, sans bloquer l'affichage
