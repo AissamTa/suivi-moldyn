@@ -14,7 +14,6 @@
    Chargement : config -> utils -> storage -> export-excel -> update -> app
    ═══════════════════════════════════════════════════════════════ */
 const NB_H = MOLDYN_CONFIG.HOURS;
-const NB_H = MOLDYN_CONFIG.HOURS;
 const CODES = MOLDYN_CONFIG.CODES;
 const PROCESS = MOLDYN_CONFIG.PROCESS;
 const SHIFTS = MOLDYN_CONFIG.SHIFTS;
